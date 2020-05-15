@@ -1,0 +1,205 @@
+<html>
+
+<head>
+  <title>Sanjeev Kumar</title>
+  <!-- META TAGS -->
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon " href="image/favicon.ico" type="image/x-icon>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+    .separator {
+      margin: 10px;
+    }
+    
+    .error-msg {
+      margin: 40px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .error-msg .error-description {
+      font-size: 1.2rem;
+      color: #E31B36;
+    }
+    html,
+    body {
+      font-family: 'Comfortaa', cursive;
+      background: ;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fafafa;
+    }
+    .container {
+      font-family: 'Righteous', cursive;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      font-size: 10vw;
+      font-weight: 100;
+    }
+    .text {
+      font-weight: 100;
+      color: #191919;
+    }
+    .dud {
+      color: #757575;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="text"></div>
+  </div>
+  <div class="error-msg text">
+    <div>oops. sorry about that...</div>
+    <div class="separator">----</div>
+    <div class="error-description">Will Be Live Soon.</div>
+    <div class="separator"></div>
+  </div>
+
+  <script>
+    'use strict';
+    function _classCallCheck(instance, Constructor) {
+      if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+      }
+    }
+    // ——————————————————————————————————————————————————
+    // TextScramble
+    // ——————————————————————————————————————————————————
+    var TextScramble = function() {
+      function TextScramble(el) {
+        _classCallCheck(this, TextScramble);
+        this.el = el;
+        this.chars = '!<>-_\\/^%#@!@+""?:[]{}—=+*^?#________';
+        this.update = this.update.bind(this);
+      }
+      TextScramble.prototype.setText = function setText(newText) {
+        var _this = this;
+        var oldText = this.el.innerText;
+        var length = Math.max(oldText.length, newText.length);
+        var promise = new Promise(function(resolve) {
+          return _this.resolve = resolve;
+        });
+        this.queue = [];
+        for (var i = 0; i < length; i++) {
+          var from = oldText[i] || '';
+          var to = newText[i] || '';
+          var start = Math.floor(Math.random() * 40);
+          var end = start + Math.floor(Math.random() * 40);
+          this.queue.push({
+            from: from,
+            to: to,
+            start: start,
+            end: end
+          });
+        }
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+        return promise;
+      };
+      TextScramble.prototype.update = function update() {
+        var output = '';
+        var complete = 0;
+        for (var i = 0, n = this.queue.length; i < n; i++) {
+          var _queue$i = this.queue[i];
+          var from = _queue$i.from;
+          var to = _queue$i.to;
+          var start = _queue$i.start;
+          var end = _queue$i.end;
+          var char = _queue$i.char;
+          if (this.frame >= end) {
+            complete++;
+            output += to;
+          } else if (this.frame >= start) {
+            if (!char || Math.random() < 0.28) {
+              char = this.randomChar();
+              this.queue[i].char = char;
+            }
+            output += '<span class="dud">' + char + '</span>';
+          } else {
+            output += from;
+          }
+        }
+        this.el.innerHTML = output;
+        if (complete === this.queue.length) {
+          this.resolve();
+        } else {
+          this.frameRequest = requestAnimationFrame(this.update);
+          this.frame++;
+        }
+      };
+      TextScramble.prototype.randomChar = function randomChar() {
+        return this.chars[Math.floor(Math.random() * this.chars.length)];
+      };
+      return TextScramble;
+    }();
+    // ——————————————————————————————————————————————————
+    // Example
+    // ——————————————————————————————————————————————————
+    var phrases = [' ---$$$--- ', 'Comin..^&@','-Sanjeev-', ' -Comin*&^Soon ', ' -Kumar ','-coming soon-','Sanjeev Kumar','Coming Soon'];
+    var el = document.querySelector('.text');
+    var fx = new TextScramble(el);
+    var counter = 0;
+    var next = function next() {
+      fx.setText(phrases[counter]).then(function() {
+        if (counter <= 10) {
+          setTimeout(next, 800);
+
+        } else {
+          // do nothing
+        }
+      });
+      counter++;
+    };
+    next();
+  </script>
+  <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+  <div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="en_US" data-type="horizontal" data-theme="light" data-vanity="snjev310"><a class="LI-simple-link" href='https://in.linkedin.com/in/snjev310?trk=profile-badge'>Sanjeev Kumar</a></div>
+<!-- fb -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=679827485536203&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-send" data-href="https://www.facebook.com/snjev310"></div>
+<!-- fb -->
+
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<!-- Place this tag where you want the widget to render. -->
+<div class="g-person" data-href="//plus.google.com/u/0/117428644825154587757" data-showcoverphoto="false" data-rel="author"></div>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<g:hangout render="createhangout"></g:hangout>
+
+
+
+<div class="container1">
+  <a href="https://www.facebook.com/snjev310" class="btn btn-social btn-primary btn-facebook" target="_blank">Facebook</a>
+  <a href="mailto:snjev421@gmail.com" class="btn btn-danger btn-social btn-google" target="_blank">Gmail</a>
+  <a href="https://www.linkedin.com/in/snjev310/" class="btn btn-info btn-social btn-linkedin" target="_blank">LinkedIn</a>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>
